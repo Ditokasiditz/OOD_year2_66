@@ -10,7 +10,9 @@ print(int(student_id))
 
 scores_dict = {scores[i]: float(scores[i+1])
                for i in range(0, len(scores) - 1, 2)}
-print(scores_dict)
+
+sorted_dict = dict(sorted(scores_dict.items(), key=lambda x: x[1], reverse=True))
+print(sorted_dict)
 
 num = 1
 for i in scores_dict.keys():
