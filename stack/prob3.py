@@ -1,24 +1,27 @@
-# กฤษฎาได้ถูกคุณแม่ไหว้วานให้ล้างจานกองเป็นภูเขา  แต่ทว่ากฤษฎาก็ได้สังเกตเห็นว่าจานแต่ละใบนั้นมีน้ำหนักที่แตกต่างกัน และบนจานยังมีตัวเลขอีกด้วย  กฤษฎาได้เหม่อลอยเนื่องจากครุ่นคริสว่าตัวเลขนั้นหมายถึงอะไร  กฤษฎาก็ได้ทำจานหลุดมือจนจานแตก  และเมื่อจานแตกได้มีเสียงที่มีความถี่ตามเลขบนจาน  กฤษฎาจึงนึกสนุกได้นำจานขนาดต่างๆและมีความถี่ต่างกันมาวางซ้อนๆกัน  โดยถ้าหากนำจานที่มีน้ำหนักมากกว่ามาวางบนจานที่มีน้ำหนักน้อยกว่า จะทำให้จานที่มีน้ำหนักน้อยกว่า แตก !!! และจะแตกไปเรื่อยๆจนกว่าจานใบด้านล่างจะมีน้ำหนักเท่ากันหรือมากกว่า หรือจนกว่าจะไม่มีจานด้านล่างมารองรับแล้ว
-
-# ให้น้องๆเขียนโปรแกรมอ่านลำดับของจานที่กฤษฎาได้วางลงไปโดยให้ใส่จานทีละใบ  ซึ่งรวมถึงขนาดของจานและความถี่ของจาน  จากนั้นให้หาว่าลำดับของความถี่ของจานที่ได้ยินเมื่อวางจานลงไปตามนั้นแล้วจะเป็นเช่นใด
-
-# อธิบาย Input : จะมีแค่รูปแบบเดียวคือ   < a  b >  โดยที่  a = น้ำหนักของจาน  ,  b = ความถี่ของจาน
-
 class Stack:
-  def __init__(self):
-    self.stack = []
+    def __init__(self):
+        self.items = []
 
-  def pop(self):
-    return self.stack.pop() if not self.is_empty() else None
+    def isEmpty(self):
+        return len(self.items) == 0
 
-  def push(self, item):
-    return self.stack.append(item)
- 
-  def peek(self):
-    return self.stack[-1] if not self.is_empty() else None
+    def size(self):
+        return len(self.items)
 
-  def is_empty(self):
-    return self.stack == []
+    def top(self):
+        return self.items[-1] if self.size()>0 else -1
 
-  def size(self):
-    return len(self.stack)
+    def push(self,tmp):
+        self.items.append(tmp)
+
+    def pop(self):
+        return self.items.pop()
+
+l = [[int(j) for j in i.split()] for i in input("Enter Input : ").split(",")]
+s = Stack()
+for i in l:
+    # print("s_item",s.items)
+    # print("i in l : ",i)
+    while not s.isEmpty() and i[0] > s.top()[0]:
+        print(s.pop()[1])
+    s.push(i)
