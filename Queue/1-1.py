@@ -10,7 +10,7 @@ class Queue():
         self.item.append(i)
 
     def deQueue(self):
-        return self.item.pop(0) if not self.isEmpty() else None
+        return self.item.pop(0) if not self.isEmpty() else None 
 
     def size(self):
         return len(self.item)
@@ -27,22 +27,6 @@ class Queue():
     def __str__(self):
         if not self.isEmpty():
             return " ".join(self.item)
-        else :
-            return("Empty")
-    
-    
-q1 = Queue()
-inp = input("Enter Input : ").split(',')
-
-for i in inp:
-    if i[0] == 'E':
-        q1.enQueue(i[2:])
-        print(q1.size())
-    elif i[0] == 'D':
-        if not q1.isEmpty():
-            print(q1.item[0],q1.index(q1.item[0]))
-            q1.deQueue()
         else:
-            print(-1)
-
-print(q1)
+            return "-1"
+    
