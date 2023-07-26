@@ -9,7 +9,7 @@ class Stack:
         return self.item.pop()
 
     def peek(self):
-        return self.item[-1]
+        return self.item[-1] if not Stack.is_empty() else None
     
     def is_empty(self):
         return self.item == []
@@ -22,8 +22,9 @@ class Stack:
     
 
 s = Stack()
-for ls in range(10):
-    s.push(ls)
+print(s.item)
+# for ls in range(10):
+#     s.push(ls)
 
 
 print('the last element is :',s.peek())
