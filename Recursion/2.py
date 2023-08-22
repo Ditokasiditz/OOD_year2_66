@@ -20,9 +20,18 @@ def remove_demon(village_map, x, y):
         village_map = remove_demon(village_map, x, y-1)
     return village_map
 
+
+
 # Get input
 width, height = map(int, input("Enter input: ").split())
-village_map = [input() for _ in range(height)]
+village_map_inp = [input() for _ in range(height)]
+
+#fix village map
+village_map = []
+for row in village_map_inp:
+        row_without_spaces = row.replace(' ', '')  # Remove spaces from the row
+        village_map.append(row_without_spaces)  # Add the modified row to the fix_village_map
+    
 
 # Calculate and print the result
 result = count_demons(village_map)
