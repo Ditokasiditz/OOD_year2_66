@@ -1,37 +1,35 @@
-def count_demons(village_map):
-    width = len(village_map[0])
-    height = len(village_map)
-    demon_count = 0
+def count_connected_hashes(grid, row, col, visited):
+    if row < 0 or row >= len(grid) or col < 0 or col >= len(grid[0]):
+        return 0
+    
+    if grid[row][col] == '.' or visited[row][col]:
+        return 0
+    
+    visited[row][col] = True
+    
+    count = 1
+    
+    count += count_connected_hashes(grid, row + 1, col, visited)
+    count += count_connected_hashes(grid, row - 1, col, visited)
+    count += count_connected_hashes(grid, row, col + 1, visited)
+    count += count_connected_hashes(grid, row, col - 1, visited)
+    
+    return count
 
-    for y in range(height):
-        for x in range(width):
-            if village_map[y][x] == '#':
-                demon_count += 1
-                village_map = remove_demon(village_map, x, y)
+def main():
+    cols, rows = map(int, input("Enter input: ").split())
+    grid = [list(input().split()) for _ in range(rows)]
+    
+    visited = [[False] * cols for _ in range(rows)]
+    total_hashes = 0
+    
+    for row in range(rows):
+        for col in range(cols):
+            if grid[row][col] == '#' and not visited[row][col]:
+                total_hashes += 1
+                count_connected_hashes(grid, row, col, visited)
+    
+    print(total_hashes)
 
-    return demon_count
-
-def remove_demon(village_map, x, y):
-    if x >= 0 and y >= 0 and x < len(village_map[0]) and y < len(village_map) and village_map[y][x] == '#':
-        village_map[y] = village_map[y][:x] + '.' + village_map[y][x+1:]
-        village_map = remove_demon(village_map, x+1, y)
-        village_map = remove_demon(village_map, x-1, y)
-        village_map = remove_demon(village_map, x, y+1)
-        village_map = remove_demon(village_map, x, y-1)
-    return village_map
-
-# Get input
-width, height = map(int, input("Enter input: ").split())
-village_map_inp = [input() for _ in range(height)]
-
-print(village_map_inp)
-# Fix village map
-village_map = []
-for row in village_map_inp:
-    row_without_spaces = row.replace(' ', '')  # Remove spaces from the row
-    village_map.append(row_without_spaces)  # Add the modified row to the fix_village_map
-
-print(village_map)
-# Calculate and print the result
-result = count_demons(village_map)
-print(result)
+if __name__ == "__main__":
+    main()
